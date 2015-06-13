@@ -1,8 +1,23 @@
-// Bookshelf.js 0.8.1
-// ---------------
+/**
+ * Bluebird
+ * @external Promise
+ * @see {@link https://github.com/petkaantonov/bluebird/ Bluebird}
+ */
 
-//     (c) 2014 Tim Griesser
-//     Bookshelf may be freely distributed under the MIT license.
-//     For all details and documentation:
-//     http://bookshelfjs.org
+/**
+ * Knex.js
+ * @external Knex
+ * @see {@link https://knexjs.org Knex}
+ */
+
+/**
+ * (c) 2014 Tim Griesser
+ * For all details and documentation:
+ * http://bookshelfjs.org
+ *
+ * @name Bookshelf.js
+ * @version 0.8.1
+ * @license MIT
+ *
+ */
 module.exports = require('./lib')
