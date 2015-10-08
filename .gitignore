@@ -4,4 +4,8 @@ raw
 node_modules
 npm-debug.log
 tmp
-test/coverage/*
+test/coverage/
+lib/
+build/
+index.html
+docs/
