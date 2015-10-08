@@ -23,7 +23,10 @@ next_ref="v$next_version"
 
 git add -u
 npm run build
-git add -A build
+npm run jsdoc
+
+# We must force add because these are usually ignored.
+git add --force --all index.html docs build
 
 # Update version in package.json before running tests (tests will catch if the
 # version number is out of sync).
@@ -31,17 +34,24 @@ update_version 'package.json' $next_version
 
 npm test
 
-git commit -am "release $next_version"
+git commit -am "Release $next_version."
 git tag $next_version
 
-git push origin master
-git push origin master --tags
+echo skipped: git push origin master
+echo skipped: git push origin master --tags
 
 echo "# Publishing docs"
 
 git checkout gh-pages
 git merge master
-git push origin gh-pages
+echo skipped: git push origin gh-pages
 git checkout master
 
-npm publish
+echo skipped: npm publish
+
+# Now clean up those force added files, we'll have to add another commit.
+git rm -r cached
+git add .
+git commit -am "Remove build, lib and docs after $next_version release."
+
+echo skipped: git push origin master
