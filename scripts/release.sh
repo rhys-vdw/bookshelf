@@ -1,15 +1,31 @@
 #!/bin/bash -e
 
-git checkout master
+#git checkout master
 
-changelog=node_modules/.bin/changelog
+get_property() {
+  echo $(node -p "p=require('./${1}').${2};")
+}
+
+delete_property() {
+  echo "$(node -p "p=require('./${1}');delete p.${2};JSON.stringify(p, null, 2)")" > $1
+}
+
+set_property() {
+  echo "$(node -p "p=require('./${1}');p.${2}=${3};JSON.stringify(p, null, 2)")" > $1
+}
 
 update_version() {
-  echo "$(node -p "p=require('./${1}');p.version='${2}';JSON.stringify(p,null,2)")" > $1
+  echo "$(set_property ${1} 'version' $2})"
   echo "Updated ${1} version to ${2}"
 }
 
-current_version=$(node -p "require('./package').version")
+# Remove the postinstall script, because we're going to build everything here.
+original_postinstall="$(get_property 'package.json' 'scripts.postinstall')"
+delete_property 'package.json' 'scripts.postinstall'
+
+exit 0
+
+current_version=get_property 'package.json' 'version'
 
 printf "Next version (current is $current_version)? "
 read next_version
@@ -51,6 +67,7 @@ echo skipped: npm publish
 
 # Now clean up those force added files, we'll have to add another commit.
 git rm -r cached
+set_property 'package.json', 'scripts.postinstall', original_postinstall
 git add .
 git commit -am "Remove build, lib and docs after $next_version release."
 
