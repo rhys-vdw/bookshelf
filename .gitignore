@@ -9,4 +9,4 @@ lib/
 build/
 index.html
 docs/
-scripts/jsdoc-static/assets/knex.min.js
+.jsdoc-temp/
