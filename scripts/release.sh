@@ -22,9 +22,7 @@ update_version() {
 }
 
 # Remove the postinstall script, because we're going to build everything here.
-original_postinstall=$(get_property 'package.json' 'scripts.postinstall')
 current_version=$(get_property 'package.json' 'version')
-delete_property 'package.json' 'scripts.postinstall'
 
 printf "Next version (current is $current_version)? "
 read next_version
@@ -34,11 +32,12 @@ if ! [[ $next_version =~ ^[0-9]\.[0-9]+\.[0-9](-.+)? ]]; then
   exit 1
 fi
 
-next_ref="v$next_version"
-
 git add -u
 npm run build
 npm run jsdoc
+
+original_postinstall=$(get_property 'package.json' 'scripts.postinstall')
+delete_property 'package.json' 'scripts.postinstall'
 
 # We must force add because these are usually ignored.
 git add --force --all index.html docs build
