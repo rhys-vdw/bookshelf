@@ -17,7 +17,7 @@ set_property() {
 }
 
 update_version() {
-  echo "$(set_property ${1} 'version' $2})"
+  echo "$(set_property ${1} 'version' "'${2}'")"
   echo "Updated ${1} version to ${2}"
 }
 
