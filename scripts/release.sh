@@ -24,6 +24,7 @@ update_version() {
 # Remove the postinstall script, because we're going to build everything here.
 current_version=$(get_property 'package.json' 'version')
 
+printf "Please ensure that the version number has been updated in bookshelf.js and src/bookshelf.js before continuing."
 printf "Next version (current is $current_version)? "
 read next_version
 
@@ -66,7 +67,7 @@ git checkout master
 echo skipped: npm publish
 
 # Now clean up those force added files, we'll have to add another commit.
-git rm -r --cached
+git rm -r --cached .
 set_property 'package.json', 'scripts.postinstall', original_postinstall
 git add .
 git commit -am "Remove build, lib and docs after $next_version release."
