@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-#git checkout master
+git checkout master
 
 get_property() {
   echo $(node -p "p=require('./${1}').${2};")
@@ -8,10 +8,12 @@ get_property() {
 
 delete_property() {
   echo "$(node -p "p=require('./${1}');delete p.${2};JSON.stringify(p, null, 2)")" > $1
+  echo "deleted '${2}' from './${1}'"
 }
 
 set_property() {
   echo "$(node -p "p=require('./${1}');p.${2}=${3};JSON.stringify(p, null, 2)")" > $1
+  echo "set '${2}' to '${3}' in './${1}'"
 }
 
 update_version() {
@@ -20,12 +22,9 @@ update_version() {
 }
 
 # Remove the postinstall script, because we're going to build everything here.
-original_postinstall="$(get_property 'package.json' 'scripts.postinstall')"
+original_postinstall=$(get_property 'package.json' 'scripts.postinstall')
+current_version=$(get_property 'package.json' 'version')
 delete_property 'package.json' 'scripts.postinstall'
-
-exit 0
-
-current_version=get_property 'package.json' 'version'
 
 printf "Next version (current is $current_version)? "
 read next_version
