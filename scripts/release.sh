@@ -36,6 +36,8 @@ git add -u
 npm run build
 npm run jsdoc
 
+# Remove the postinstall script because we'll be including the built files in
+# this commit.
 original_postinstall=$(get_property 'package.json' 'scripts.postinstall')
 delete_property 'package.json' 'scripts.postinstall'
 
@@ -64,7 +66,7 @@ git checkout master
 echo skipped: npm publish
 
 # Now clean up those force added files, we'll have to add another commit.
-git rm -r cached
+git rm -r --cached
 set_property 'package.json', 'scripts.postinstall', original_postinstall
 git add .
 git commit -am "Remove build, lib and docs after $next_version release."
