@@ -64,8 +64,6 @@ echo "$(git merge master)"
 echo skipped: git push origin gh-pages
 echo "$(git checkout master)"
 
-exit 0
-
 echo skipped: npm publish
 
 # Now clean up those force added files, we'll have to add another commit.
@@ -73,5 +71,8 @@ echo "$(git rm -r --cached .)"
 set_property 'package.json' 'scripts.postinstall' "'$original_postinstall'"
 echo "$(git add .)"
 echo "$(git commit -m "Remove build, lib and docs after $next_version release.")"
+
+exit 0
+
 
 echo skipped: git push origin master
