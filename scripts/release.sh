@@ -22,7 +22,7 @@ update_version() {
 }
 
 # Remove the postinstall script, because we're going to build everything here.
-current_version=$(get_property 'package.json' 'version')
+current_version="$(get_property 'package.json' 'version')"
 
 printf "Please ensure that the version number has been updated in bookshelf.js and src/bookshelf.js before continuing.\n"
 printf "Next version (current is $current_version)? "
@@ -39,7 +39,7 @@ npm run jsdoc
 
 # Remove the postinstall script because we'll be including the built files in
 # this commit.
-original_postinstall=$(get_property 'package.json' 'scripts.postinstall')
+original_postinstall="$(get_property 'package.json' 'scripts.postinstall')"
 delete_property 'package.json' 'scripts.postinstall'
 
 # We must force add because these are usually ignored.
