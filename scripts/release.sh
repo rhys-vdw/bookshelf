@@ -67,9 +67,9 @@ git checkout master
 echo skipped: npm publish
 
 # Now clean up those force added files, we'll have to add another commit.
-git rm -r --cached .
+echo $(git rm -r --cached .)
 set_property 'package.json' 'scripts.postinstall' $original_postinstall
-git add .
-git commit -am "Remove build, lib and docs after $next_version release."
+echo $(git add .)
+echo $(git commit -m "Remove build, lib and docs after $next_version release.")
 
 echo skipped: git push origin master
