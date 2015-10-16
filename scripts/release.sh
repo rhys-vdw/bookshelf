@@ -24,7 +24,7 @@ update_version() {
 # Remove the postinstall script, because we're going to build everything here.
 current_version=$(get_property 'package.json' 'version')
 
-printf "Please ensure that the version number has been updated in bookshelf.js and src/bookshelf.js before continuing."
+printf "Please ensure that the version number has been updated in bookshelf.js and src/bookshelf.js before continuing.\n"
 printf "Next version (current is $current_version)? "
 read next_version
 
