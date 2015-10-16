@@ -68,7 +68,7 @@ echo skipped: npm publish
 
 # Now clean up those force added files, we'll have to add another commit.
 echo $(git rm -r --cached .)
-set_property 'package.json' 'scripts.postinstall' $original_postinstall
+set_property 'package.json' 'scripts.postinstall' "'$original_postinstall'"
 echo $(git add .)
 echo $(git commit -m "Remove build, lib and docs after $next_version release.")
 
