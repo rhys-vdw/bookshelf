@@ -54,17 +54,17 @@ npm test
 git commit -am "Release $next_version."
 git tag $next_version
 
-echo skipped: git push origin master
-echo skipped: git push origin master --tags
+git push origin master
+git push origin master --tags
 
 echo "# Publishing docs"
 
 echo "$(git checkout -B gh-pages)"
 echo "$(git merge master)"
-echo skipped: git push origin gh-pages
+git push origin gh-pages
 echo "$(git checkout master)"
 
-echo skipped: npm publish
+npm publish
 
 # Now clean up those force added files, we'll have to add another commit.
 # First remove all files in the repo (including those ignored files that we
@@ -82,7 +82,4 @@ sleep 1
 
 echo "$(git commit -m "Remove build, lib and docs after $next_version release.")"
 
-exit 0
-
-
-echo skipped: git push origin master
+git push origin master
