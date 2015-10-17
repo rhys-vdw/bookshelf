@@ -67,12 +67,19 @@ echo "$(git checkout master)"
 echo skipped: npm publish
 
 # Now clean up those force added files, we'll have to add another commit.
+# First remove all files in the repo (including those ignored files that we
+# force added.
 echo "$(git rm -r --cached .)"
+
+# Reset package.json.
 set_property 'package.json' 'scripts.postinstall' "'$original_postinstall'"
+
+# Now add all files, this will exclude ignored files.
 echo "$(git add .)"
 
 # Sleeping here space out commits (graph looked weird in SourceTree).
 sleep 1
+
 echo "$(git commit -m "Remove build, lib and docs after $next_version release.")"
 
 exit 0
