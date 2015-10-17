@@ -59,7 +59,7 @@ echo skipped: git push origin master --tags
 
 echo "# Publishing docs"
 
-echo "$(git checkout gh-pages)"
+echo "$(git checkout -B gh-pages)"
 echo "$(git merge master)"
 echo skipped: git push origin gh-pages
 echo "$(git checkout master)"
