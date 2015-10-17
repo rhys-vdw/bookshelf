@@ -43,7 +43,7 @@ original_postinstall="$(get_property 'package.json' 'scripts.postinstall')"
 delete_property 'package.json' 'scripts.postinstall'
 
 # We must force add because these are usually ignored.
-git add --force --all index.html docs build
+git add --force --all index.html docs build lib
 
 # Update version in package.json before running tests (tests will catch if the
 # version number is out of sync).
@@ -70,6 +70,9 @@ echo skipped: npm publish
 echo "$(git rm -r --cached .)"
 set_property 'package.json' 'scripts.postinstall' "'$original_postinstall'"
 echo "$(git add .)"
+
+# Sleeping here space out commits (graph looked weird in SourceTree).
+sleep 1
 echo "$(git commit -m "Remove build, lib and docs after $next_version release.")"
 
 exit 0
